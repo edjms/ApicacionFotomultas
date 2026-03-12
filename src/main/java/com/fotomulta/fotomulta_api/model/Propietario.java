@@ -9,10 +9,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "propietario")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Propietario {
     @Id
 
@@ -24,7 +23,8 @@ public abstract class Propietario {
     private String nombre;
     private String direccion;
 
-
+    public Propietario() {
+    }
     public Propietario(String identificacion, String nombre, String direccion) {
         this.identificacion = identificacion;
         this.nombre = nombre;
