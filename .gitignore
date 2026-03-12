@@ -1,8 +1,8 @@
 HELP.md
 target/
 .mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+#!**/src/main/**/target/
+#!**/src/test/**/target/
 
 ### STS ###
 .apt_generated
@@ -26,8 +26,33 @@ target/
 /nbdist/
 /.nb-gradle/
 build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+#!**/src/main/**/build/
+#!**/src/test/**/build/
 
 ### VS Code ###
 .vscode/
+
+# Logs
+*.log
+logs/
+temp/
+*.tmp
+
+# Configuración local y secretos
+.env
+*.local
+application-local.properties
+application-local.yml
+
+# OS específicos
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Maven extras
+bin/
+out/
+.metadata/
+*.class
+# Reportes de tests (Surefire/Failsafe)
+TEST-*.xml
