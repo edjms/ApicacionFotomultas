@@ -1,46 +1,36 @@
 package com.fotomulta.fotomulta_api.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "infracciones")
+@Table(name = "infraccion")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Infraccion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private LocalDateTime fechaHora;
+    @Column(name = "fecha_infraccion", nullable = false)
+    private LocalDate fechaInfraccion;
 
-    @Column(nullable = false)
-    private String descripcion;
-
-    // Aquí guardamos si fue "AGENTE" o "CAMARA"
-    @Column(name = "tipo_deteccion", nullable = false)
-    private String tipoDeteccion;
-
-    // Nombre del agente o código de la cámara
-    @Column(name = "identificador_deteccion")
-    private String identificadorDeteccion;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vehiculo_placa", nullable = false)
+    // Relación con vehículo
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "vehiculo_id", nullable = false)
     private Vehiculo vehiculo;
 
-    public Infraccion() {}
-
-    public Infraccion(LocalDateTime fechaHora, String descripcion, String tipoDeteccion, String identificadorDeteccion, Vehiculo vehiculo) {
-        this.fechaHora = fechaHora;
-        this.descripcion = descripcion;
-        this.tipoDeteccion = tipoDeteccion;
-        this.identificadorDeteccion = identificadorDeteccion;
-        this.vehiculo = vehiculo;
-    }
+    // Quién la accionó: agente o cámara
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private MedioDeteccion medioDeteccion;
 }
